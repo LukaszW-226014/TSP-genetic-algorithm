@@ -4,8 +4,10 @@ public class GeneticAlgorithm
 {
     private final Matrix matrix;
 
-    int[] currSolution;
+    int[] currentRoute;
     int problemSize;
+    int weightSum;
+
 
 
     public GeneticAlgorithm(Matrix matrix) {
@@ -16,26 +18,30 @@ public class GeneticAlgorithm
 
     private void setupCurrentSolution() {
         // wypelnienie obecnego rozwiazania 0,1,2,...
-        currSolution = new int[problemSize + 1];
-        for (int i = 0; i < problemSize; i++)
-            currSolution[i] = i;
-        currSolution[problemSize] = 0;
+//        currentRoute = new int[problemSize + 1];
+        currentRoute = new int[problemSize];
+        for (int i = 0; i < problemSize; i++){
+            currentRoute[i] = i;
+        }
+
+//        currentRoute[problemSize] = 0;
         // ustalenie nowego losowego rozwiazania
         Random r = new Random();
-        for(int k = problemSize-1, j, buf; k > 1; k--)
+        for(int k = problemSize-1, j, buf; k > 0; k--) //k > 1
         {
             j = r.nextInt(k);
-            buf = currSolution[k];
-            currSolution[k] = currSolution[j];
-            currSolution[j] = buf;
+            buf = currentRoute[k];
+            currentRoute[k] = currentRoute[j];
+            currentRoute[j] = buf;
         }
+        /*
         for (int m = 0; m < problemSize; m++){
-            if (currSolution[m] == 0){
-                currSolution[m] = currSolution[0];
+            if (currentRoute[m] == 0){
+                currentRoute[m] = currentRoute[0];
             }
         }
-        currSolution[0] = 0;
-        currSolution[problemSize] = 0;
+        currentRoute[0] = 0;
+        currentRoute[problemSize] = 0;*/
     }
 
     private void printSolution(int[] solution) {
@@ -45,4 +51,8 @@ public class GeneticAlgorithm
         System.out.println();
     }
 
+    public void search(){
+        setupCurrentSolution();
+        printSolution(currentRoute);
+    }
 }
