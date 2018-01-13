@@ -52,10 +52,12 @@ public class Main {
             }
             Matrix matrix = new Matrix(n);
 //            TabuSearch tabuSearch = new TabuSearch(matrix);
+            GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(matrix);
             Timer timer = new Timer();
             timer.start();
 //            tabuSearch.search();
-            System.out.println("Czas = " + timer.getElapsedTime() + "sec");
+            geneticAlgorithm.search();
+            System.out.println("Czas = " + timer.getElapsedTime()/600000000L + "sec");
         }
         catch (FileNotFoundException e){
             System.out.println("Nie wybrales pliku");
