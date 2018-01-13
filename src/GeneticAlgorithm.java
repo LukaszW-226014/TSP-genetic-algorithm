@@ -8,7 +8,16 @@ public class GeneticAlgorithm
     int problemSize;
     int weightSum;
 
-
+    public GeneticAlgorithm(){
+        int[][] mt = {{0, 1, 3, 4, 5},
+                        {1, 0, 1, 4, 8},
+                        {3, 1, 0, 5, 1},
+                        {4, 4, 5, 0, 2},
+                        {5, 8, 1, 2, 0}};
+        matrix = new Matrix(mt);
+        problemSize = matrix.getEdgeCount();
+        setupCurrentSolution();
+    }
 
     public GeneticAlgorithm(Matrix matrix) {
         this.matrix = matrix;
@@ -16,7 +25,7 @@ public class GeneticAlgorithm
         setupCurrentSolution();
     }
 
-    private void setupCurrentSolution() {
+    public void setupCurrentSolution() {
         // wypelnienie obecnego rozwiazania 0,1,2,...
 //        currentRoute = new int[problemSize + 1];
         currentRoute = new int[problemSize];
