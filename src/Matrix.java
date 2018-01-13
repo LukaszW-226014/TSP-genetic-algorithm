@@ -42,6 +42,8 @@ public class Matrix {
         for (int i = 0; i < solution.length - 1; i++) {
             cost += matrix[solution[i]][solution[i + 1]];
         }
+
+        cost += matrix[solution.length - 1][0];
         return cost;
     }
 }
