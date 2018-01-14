@@ -56,7 +56,7 @@ public class Main {
             Timer timer = new Timer();
             timer.start();
 //            tabuSearch.search();
-            geneticAlgorithm.search();
+            geneticAlgorithm.search(50, 0.9, 0.01);
             System.out.println("Czas = " + timer.getElapsedTime()/600000000L + "sec");
         }
         catch (FileNotFoundException e){
