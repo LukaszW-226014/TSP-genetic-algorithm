@@ -31,13 +31,13 @@ public class GenotypeTest {
     @Test
     public void crossover() throws Exception {
         System.out.println("crossover test");
-        gen.crossover(parent1, parent2, problemSize);
+        parent2.crossover(parent1, problemSize);
     }
 
     @Test
     public void mutation() throws Exception {
         System.out.println("mutation test");
-        gen.crossover(parent1,parent2,problemSize).mutation();
+        gen.crossover(parent1, problemSize).mutation();
     }
 
 }
