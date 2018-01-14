@@ -23,6 +23,7 @@ public class GeneticAlgorithm
 
     public GeneticAlgorithm(Matrix matrix) {
         this.matrix = matrix;
+        //matrix.printMatrix();
         problemSize = matrix.getEdgeCount();
         setupCurrentSolution();
     }
@@ -70,9 +71,18 @@ public class GeneticAlgorithm
 
         int childsCount = ((populationSize / 4) - 1) * (populationSize / 4);
         int parentsCount = populationSize / 4;
-        List <Genotype> population = new ArrayList<>(populationSize);
+        List <Genotype> population = new ArrayList<>();
+        for (int i = 0; i < populationSize + childsCount; i++){
+            population.add(new Genotype(problemSize));
+        }
         List <Genotype> childs = new ArrayList<>();
+        for (int i = 0; i < childsCount; i++){
+            childs.add(new Genotype(problemSize));
+        }
         List <Genotype> parents = new ArrayList<>();
+        for (int i = 0; i < parentsCount; i++){
+            parents.add(new Genotype(problemSize));
+        }
         List tournamentTable = new ArrayList();
         for (int i = 0; i < populationSize; i++){
             tournamentTable.add(i);
@@ -85,7 +95,8 @@ public class GeneticAlgorithm
 
         for (int i = 0; i < populationSize; i++){
             setupCurrentSolution();
-            population.get(i).currentRoute = currentRoute;
+//            population.get(i).currentRoute = currentRoute;
+            System.arraycopy(currentRoute, 0, population.get(i).currentRoute, 0, population.get(i).currentRoute.length);
             population.get(i).weightSum = matrix.calculateDistance(currentRoute);
         }
 
@@ -120,9 +131,9 @@ public class GeneticAlgorithm
             for (int i =0; i < parentsCount; i++){
                 for (int j = i + 1; j < parentsCount; j++){
                     if (rand.nextDouble() < crossoverProbability){
-                        childs.set(childCounter, parents.get(i).crossover(parents.get(j)));
+                        childs.set(childCounter, parents.get(i).crossover(parents.get(j), problemSize));
                         childCounter++;
-                        childs.set(childCounter, parents.get(j).crossover(parents.get(i)));
+                        childs.set(childCounter, parents.get(j).crossover(parents.get(i), problemSize));
                         childCounter++;
                     }
                 }
@@ -134,20 +145,28 @@ public class GeneticAlgorithm
                     childs.get(i).mutation();
                 }
                 childs.get(i).weightSum = matrix.calculateDistance(childs.get(i).currentRoute);
+                //System.out.println("Koszt: " + childs.get(i).weightSum);
             }
 
             //Dodaj dzieci do populacji i sortuj
-            //TODO
+            //System.arraycopy(childs, 0, population, populationSize, childs.size());
+            for (int i = 0, j = populationSize; i < childs.size(); i++, j++){
+                population.set(j, childs.get(i));
+            }
+            population.sort(Genotype::compareTo);
+
+            /*for (int i = 0; i < population.size(); i++){
+                System.out.print("\nPosortowana populacja: " + population.get(i).weightSum);
+            }*/
 
             //sprawdz czy najlepszy osobnik w historii - jezeli tak to zapisz go i wyjdz
             if (population.get(0).weightSum < bestSolution){
                 bestSolution = population.get(0).weightSum;
                 bestRoute = population.get(0).currentRoute;
 
-                System.out.println("Czas: " + (float)timer.getElapsedTime() / 600000000L + "Naj rozw: " + bestSolution);
+                System.out.println("Czas: " + (float)timer.getElapsedTime() / 600000000L + "Naj rozw: " + bestSolution + "\nTrasa:");
+                printSolution(bestRoute);
             }
-
         }
-
     }
 }
