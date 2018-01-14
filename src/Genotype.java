@@ -44,7 +44,7 @@ public class Genotype {
             parent1Gens.add(parent1.currentRoute[sectionStartPosition + i]);
         }
 
-        System.out.print("Parent1Gens: " + parent1Gens.toString());
+        System.out.print("\nParent1Gens: " + parent1Gens.toString());
 
         //OX crossover
         for (int i = sectionEndPosition; i < problemSize; i++){
@@ -59,7 +59,7 @@ public class Genotype {
             }
         }
 
-        System.out.print("Parent2Gens: " + parent2Gens.toString());
+        System.out.print("\nParent2Gens: " + parent2Gens.toString());
 
         int j = 0;
         for (int i = sectionEndPosition; i < problemSize; i++, j++){
@@ -70,7 +70,7 @@ public class Genotype {
             child.currentRoute[i] = (int)parent2Gens.get(j);
         }
 
-        System.out.println("Child: ");
+        System.out.println("\nChild: ");
         for (int i = 0; i < problemSize; i++){
             System.out.print(child.currentRoute[i]);
         }
@@ -89,9 +89,10 @@ public class Genotype {
         this.currentRoute[mutIndex1] = this.currentRoute[mutIndex2];
         this.currentRoute[mutIndex2] = buf;
 
-        System.out.println("After mutation Child: ");
+        System.out.println("\nAfter mutation Child: ");
         for (int i = 0; i < problemSize; i++){
             System.out.print(this.currentRoute[i]);
         }
     }
+
 }
