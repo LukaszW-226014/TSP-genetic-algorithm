@@ -39,5 +39,4 @@ public class GenotypeTest {
         System.out.println("mutation test");
         gen.crossover(parent1, problemSize).mutation();
     }
-
 }

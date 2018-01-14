@@ -66,6 +66,7 @@ public class GeneticAlgorithm
     public void search(int populationSize, double crossoverProbability, double mutationProbability){
 //        setupCurrentSolution();
 //        printSolution(currentRoute);
+        int iterator = 0;
         int bestSolution = Integer.MAX_VALUE;
         int[] bestRoute = new int[problemSize];
 
@@ -102,7 +103,8 @@ public class GeneticAlgorithm
 
         Timer timer = new Timer();
         timer.start();
-        long timeEnd = 300000000000L; // 60000000000 = 60 sec
+        //long timeEnd = 300000000000L; // 60000000000 = 60 sec
+        long timeEnd = 180000000000L;
         while (timer.getElapsedTime() < timeEnd){
             Random rand = new Random();
             for (int k = populationSize - 1, b, buf; k > 1; k--){
@@ -164,9 +166,13 @@ public class GeneticAlgorithm
                 bestSolution = population.get(0).weightSum;
                 bestRoute = population.get(0).currentRoute;
 
-                System.out.println("Czas: " + (float)timer.getElapsedTime() / 600000000L + "Naj rozw: " + bestSolution + "\nTrasa:");
-                printSolution(bestRoute);
+                System.out.print("\nIteracja: " + iterator + "\t");
+                System.out.print("Czas: " + (float)timer.getElapsedTime() / 600000000L + "\t\tKoszt: " + bestSolution);
+                //System.out.print((float)timer.getElapsedTime() / 600000000L + "\t" + bestSolution + "\n");
+//                System.out.println("Trasa: ");
+//                printSolution(bestRoute);
             }
+            iterator++;
         }
     }
 }
