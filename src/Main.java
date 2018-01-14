@@ -8,9 +8,6 @@ public class Main {
     public static void main(String[] args) {
 
         // Dane do algorytmu:
-        int dlugosc_tabu;
-        int ilosc_porazek;
-
         int numOfCities = 0;
         JFileChooser chooser = new JFileChooser("instancje\\");
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
@@ -30,7 +27,7 @@ public class Main {
                 while ((nextLine = lineCounter.readLine()) != null) {
                     if (nextLine == null)
                         break;
-                    System.out.println(nextLine);
+                    //System.out.println(nextLine);
                 }
                 numOfCities = lineCounter.getLineNumber();
                 //System.out.println("Total number of line in this file " + numOfCities);
@@ -42,7 +39,7 @@ public class Main {
 
         int [][] n = new int [numOfCities][numOfCities];
         try {
-            System.out.println("Wybrales plik: " + file.toString());
+            //System.out.println("Wybrales plik: " + file.toString());
             Scanner scan = new Scanner(file);
 
             for (int i = 0; i < numOfCities; i++){
@@ -56,8 +53,8 @@ public class Main {
             Timer timer = new Timer();
             timer.start();
 //            tabuSearch.search();
-            geneticAlgorithm.search(50, 0.9, 0.01);
-            System.out.println("Czas = " + timer.getElapsedTime()/600000000L + "sec");
+            geneticAlgorithm.search(200, 0.9, 0.01);
+            System.out.println("Czas = " + timer.getElapsedTime() + "sec");
         }
         catch (FileNotFoundException e){
             System.out.println("Nie wybrales pliku");
