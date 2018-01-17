@@ -29,14 +29,12 @@ public class GeneticAlgorithm
     }
 
     public void setupCurrentSolution() {
-        // wypelnienie obecnego rozwiazania 0,1,2,...
 //        currentRoute = new int[problemSize + 1];
         currentRoute = new int[problemSize];
         for (int i = 0; i < problemSize; i++){
             currentRoute[i] = i;
         }
 
-//        currentRoute[problemSize] = 0;
         // ustalenie nowego losowego rozwiazania
         Random r = new Random();
         for(int k = problemSize-1, j, buf; k > 0; k--) //k > 1
@@ -46,14 +44,6 @@ public class GeneticAlgorithm
             currentRoute[k] = currentRoute[j];
             currentRoute[j] = buf;
         }
-        /*
-        for (int m = 0; m < problemSize; m++){
-            if (currentRoute[m] == 0){
-                currentRoute[m] = currentRoute[0];
-            }
-        }
-        currentRoute[0] = 0;
-        currentRoute[problemSize] = 0;*/
     }
 
     private void printSolution(int[] solution) {
@@ -64,8 +54,6 @@ public class GeneticAlgorithm
     }
 
     public void search(int populationSize, double crossoverProbability, double mutationProbability){
-//        setupCurrentSolution();
-//        printSolution(currentRoute);
         int iterator = 0;
         int bestSolution = Integer.MAX_VALUE;
         int[] bestRoute = new int[problemSize];
@@ -89,14 +77,8 @@ public class GeneticAlgorithm
             tournamentTable.add(i);
         }
 
-        List generationTable = new ArrayList();
-        for (int i = 0; i < problemSize; i++){
-            generationTable.add(i);
-        }
-
         for (int i = 0; i < populationSize; i++){
             setupCurrentSolution();
-//            population.get(i).currentRoute = currentRoute;
             System.arraycopy(currentRoute, 0, population.get(i).currentRoute, 0, population.get(i).currentRoute.length);
             population.get(i).weightSum = matrix.calculateDistance(currentRoute);
         }
@@ -104,7 +86,7 @@ public class GeneticAlgorithm
         Timer timer = new Timer();
         timer.start();
         //long timeEnd = 300000000000L; // 60000000000 = 60 sec
-        long timeEnd = 180000000000L;
+        long timeEnd = 300000000000L;
         while (timer.getElapsedTime() < timeEnd){
             Random rand = new Random();
             for (int k = populationSize - 1, b, buf; k > 1; k--){
@@ -113,7 +95,7 @@ public class GeneticAlgorithm
                 tournamentTable.set(k, tournamentTable.get(b));
                 tournamentTable.set(b, buf);
             }
-            // szukaj najlepszych w podgrupach 4os i dodaj ich do rodzicow
+            // selekcja
             for (int i = 0, j = 0, k = 0, currentbestSolution = Integer.MAX_VALUE, bestElement = 0; i < populationSize; i++, j++){
                 if (population.get((Integer) tournamentTable.get(i)).weightSum < currentbestSolution){
                     currentbestSolution = population.get((Integer) tournamentTable.get(i)).weightSum;

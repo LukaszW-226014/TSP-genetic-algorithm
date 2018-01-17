@@ -48,12 +48,10 @@ public class Main {
                 }
             }
             Matrix matrix = new Matrix(n);
-//            TabuSearch tabuSearch = new TabuSearch(matrix);
             GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(matrix);
             Timer timer = new Timer();
             timer.start();
-//            tabuSearch.search();
-            geneticAlgorithm.search(200, 0.9, 0.01);
+            geneticAlgorithm.search(200, 0.9, 0.1);
             System.out.println("Czas = " + timer.getElapsedTime() + "sec");
         }
         catch (FileNotFoundException e){

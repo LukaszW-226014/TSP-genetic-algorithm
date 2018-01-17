@@ -20,33 +20,23 @@ public class Genotype implements Comparable<Genotype> {
         Random rand = new Random();
 
         int sectionStartPosition = rand.nextInt(problemSize);
-        //System.out.println("start = " + sectionStartPosition);
         int sectionEndPosition = rand.nextInt(problemSize);
-        //System.out.println("end = " + sectionEndPosition);
 
-        if (sectionStartPosition > sectionEndPosition){
+        if (sectionStartPosition > sectionEndPosition) {
             int buf = sectionStartPosition;
             sectionStartPosition = sectionEndPosition;
             sectionEndPosition = buf;
         }
-        int endIndex = sectionEndPosition;
 
         for (int i = 0; i < (sectionEndPosition - sectionStartPosition); i++){
             child.currentRoute[sectionStartPosition + i] = parent1.currentRoute[sectionStartPosition + i];
         }
 
-        /*System.out.println("Child:");
-        for (int i = 0; i < problemSize; i++){
-            System.out.print(" " + child.currentRoute[i]);
-        }*/
-
         for (int i = 0; i < (sectionEndPosition - sectionStartPosition); i++){
             parent1Gens.add(parent1.currentRoute[sectionStartPosition + i]);
         }
 
-        //System.out.print("\nParent1Gens: " + parent1Gens.toString());
-
-        //OX crossover
+        //crossover
         for (int i = sectionEndPosition; i < problemSize; i++){
             if (!parent1Gens.contains(this.currentRoute[i])){
                 parent2Gens.add(this.currentRoute[i]);
@@ -59,8 +49,6 @@ public class Genotype implements Comparable<Genotype> {
             }
         }
 
-        //System.out.print("\nParent2Gens: " + parent2Gens.toString());
-
         int j = 0;
         for (int i = sectionEndPosition; i < problemSize; i++, j++){
             child.currentRoute[i] = (int)parent2Gens.get(j);
@@ -69,11 +57,6 @@ public class Genotype implements Comparable<Genotype> {
         for (int i = 0; i < sectionStartPosition; i++, j++) {
             child.currentRoute[i] = (int)parent2Gens.get(j);
         }
-
-        /*System.out.println("\nChild:");
-        for (int i = 0; i < problemSize; i++){
-            System.out.print(" " + child.currentRoute[i]);
-        }*/
 
         return child;
     }
