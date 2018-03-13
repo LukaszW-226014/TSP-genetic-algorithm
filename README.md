@@ -1,1 +1,1 @@
-TSP-genetic-algorithm
+Genetic algorithm for travelling salesman problem
